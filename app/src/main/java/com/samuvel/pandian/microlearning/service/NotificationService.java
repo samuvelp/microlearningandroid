@@ -21,7 +21,8 @@ public class NotificationService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         createNotificationChannel();
-        sendNotification();
+        sendNotification(remoteMessage.getData().get("title"),remoteMessage.getData().get("body")
+        ,remoteMessage.getData().get("url"));
     }
 
     private void createNotificationChannel() {
@@ -40,16 +41,17 @@ public class NotificationService extends FirebaseMessagingService {
         }
     }
 
-    private void sendNotification() {
+    private void sendNotification(String title, String text, String url) {
         // Create an explicit intent for an Activity in your app
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("url", url);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("My notification")
-                .setContentText("Hello World!")
+                .setSmallIcon(R.drawable.ic_notify)
+                .setContentTitle(title)
+                .setContentText(text)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 // Set the intent that will fire when the user taps the notification
                 .setContentIntent(pendingIntent)
