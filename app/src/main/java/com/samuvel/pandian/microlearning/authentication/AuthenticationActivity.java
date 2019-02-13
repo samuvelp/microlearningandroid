@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.samuvel.pandian.microlearning.MainActivity;
 import com.samuvel.pandian.microlearning.R;
+import com.samuvel.pandian.microlearning.subscription.view.SubscribeActivity;
 
 
 public class AuthenticationActivity extends AppCompatActivity implements View.OnClickListener {
@@ -67,7 +68,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
 
     private void updateUI(FirebaseUser account) {
         if (account != null) {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, SubscribeActivity.class));
             finish();
         }
     }
