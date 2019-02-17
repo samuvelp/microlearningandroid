@@ -1,11 +1,9 @@
 package com.samuvel.pandian.microlearning.learninglinks.presenter;
 
-import java.util.List;
-
 public interface LearningLinksPresenterContract {
-    void getLearningLinks();
+    void getLearningLinks(String userId);
 
-    void onLearningLinksSuccess(List<String> learningLinks);
+    void onLearningLinksSuccess(Object[] learningLinks);
 
     void onLearningLinksFailed();
 }

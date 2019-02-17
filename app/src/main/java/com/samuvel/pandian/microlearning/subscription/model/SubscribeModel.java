@@ -4,8 +4,6 @@ import android.util.Log;
 
 import com.samuvel.pandian.microlearning.subscription.presenter.SubscribePresenterContract;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,27 +55,6 @@ public class SubscribeModel implements SubscribeModelContract {
         });
     }
 
-    private void getUserLearningLinks(String userId) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        MicrolearningService service = retrofit
-                .create(MicrolearningService.class);
-        Call<List<String>> call = service.getLearningLinks(userId);
-        call.enqueue(new Callback<List<String>>() {
-            @Override
-            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<List<String>> call, Throwable t) {
-
-            }
-        });
-    }
-
     private SubscribePresenterContract getPresenter() {
         return mSubscribePresenterContract;
     }
@@ -88,7 +65,5 @@ public class SubscribeModel implements SubscribeModelContract {
                                       @Path("topic") String topic,
                                       @Path("devicetoken") String devicetoken);
 
-        @GET("learninglinks/{uuid}")
-        Call<List<String>> getLearningLinks(@Path("uuid") String uuid);
     }
 }
