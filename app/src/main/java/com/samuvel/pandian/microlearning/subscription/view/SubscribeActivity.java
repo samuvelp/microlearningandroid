@@ -1,5 +1,6 @@
 package com.samuvel.pandian.microlearning.subscription.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.samuvel.pandian.microlearning.R;
+import com.samuvel.pandian.microlearning.Utils.Preferences;
+import com.samuvel.pandian.microlearning.learninglinks.view.LearningLinksActivity;
 import com.samuvel.pandian.microlearning.subscription.presenter.SubscribePresenter;
 import com.samuvel.pandian.microlearning.subscription.presenter.SubscribePresenterContract;
 
@@ -89,7 +92,9 @@ public class SubscribeActivity extends AppCompatActivity implements SubscribeVie
 
     @Override
     public void onSubscribed() {
-
+        showToast("Subscribed!");
+        startActivity(new Intent(this, LearningLinksActivity.class));
+        Preferences.saveSubscribedTopic(mTopicEditText.getText().toString().trim(), getApplicationContext());
     }
 
     private Task<String> getDeviceToken() {
@@ -116,5 +121,13 @@ public class SubscribeActivity extends AppCompatActivity implements SubscribeVie
             mSubscribePresenterContract = new SubscribePresenter();
         }
         return mSubscribePresenterContract;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (Preferences.getSubscribedTopic(getApplicationContext()) != null) {
+            startActivity(new Intent(this, LearningLinksActivity.class));
+        }
     }
 }

@@ -33,12 +33,14 @@ public class SubscribePresenter implements SubscribePresenterContract {
 
     @Override
     public void onSubscribeSuccess() {
-
+        if(getView()!=null)
+            getView().onSubscribed();
     }
 
     @Override
     public void onSubscribeFailed() {
-
+        if(getView()!=null)
+            getView().onSubscribed();
     }
 
     private SubscribeViewContract getView() {
