@@ -1,7 +1,9 @@
 package com.samuvel.pandian.microlearning.subscription.model;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.samuvel.pandian.microlearning.R;
 import com.samuvel.pandian.microlearning.subscription.presenter.SubscribePresenterContract;
 
 import retrofit2.Call;
@@ -14,13 +16,16 @@ import retrofit2.http.Path;
 
 public class SubscribeModel implements SubscribeModelContract {
     private SubscribePresenterContract mSubscribePresenterContract;
+    private Context mContext;
 
-    public void attachPresenter(SubscribePresenterContract subscribePresenterContract) {
+    public void attachPresenter(Context context,SubscribePresenterContract subscribePresenterContract) {
         this.mSubscribePresenterContract = subscribePresenterContract;
+        this.mContext = context;
     }
 
     public void detachPresenter() {
         this.mSubscribePresenterContract = null;
+        this.mContext = null;
     }
 
 
@@ -32,7 +37,7 @@ public class SubscribeModel implements SubscribeModelContract {
 
     private void postSubscribeRequest(String deviceToken, String userId, String topic) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl(mContext.getResources().getString(R.string.ip_address))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         MicrolearningService service = retrofit

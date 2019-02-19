@@ -18,7 +18,7 @@ public class LearningLinksPresenter implements LearningLinksPresenterContract {
         this.mLearningLinksViewContract = learningLinksViewContract;
         this.mLearningLinksModelContract = new LearningLinksModel();
         this.mContext = context;
-        ((LearningLinksModel) mLearningLinksModelContract).attachPresenter(this);
+        ((LearningLinksModel) mLearningLinksModelContract).attachPresenter(mContext,this);
     }
 
     public void detachView() {

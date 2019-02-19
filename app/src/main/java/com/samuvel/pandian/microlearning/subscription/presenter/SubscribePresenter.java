@@ -15,7 +15,7 @@ public class SubscribePresenter implements SubscribePresenterContract {
         this.mContext = context;
         this.mSubscribeViewContract = subscribeViewContract;
         this.mSubscribeModelContract = new SubscribeModel();
-        ((SubscribeModel) mSubscribeModelContract).attachPresenter(this);
+        ((SubscribeModel) mSubscribeModelContract).attachPresenter(mContext,this);
     }
 
     public void detachView() {

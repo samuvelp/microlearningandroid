@@ -1,6 +1,9 @@
 package com.samuvel.pandian.microlearning.learninglinks.model;
 
 
+import android.content.Context;
+
+import com.samuvel.pandian.microlearning.R;
 import com.samuvel.pandian.microlearning.learninglinks.presenter.LearningLinksPresenterContract;
 
 import java.util.List;
@@ -15,13 +18,16 @@ import retrofit2.http.Path;
 
 public class LearningLinksModel implements LearningLinksModelContract {
     LearningLinksPresenterContract mLearningLinksPresenterContract;
+    Context mContext;
 
-    public void attachPresenter(LearningLinksPresenterContract learningLinksPresenterContract) {
+    public void attachPresenter(Context context, LearningLinksPresenterContract learningLinksPresenterContract) {
         this.mLearningLinksPresenterContract = learningLinksPresenterContract;
+        this.mContext = context;
     }
 
     public void detachPresenter() {
         this.mLearningLinksPresenterContract = null;
+        this.mContext = null;
     }
 
     @Override
@@ -31,7 +37,7 @@ public class LearningLinksModel implements LearningLinksModelContract {
 
     private void getUserLearningLinks(String userId) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl(mContext.getString(R.string.ip_address))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         LearningLinksModel.MicrolearningService service = retrofit
