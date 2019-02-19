@@ -31,13 +31,14 @@ public class LearningLinksAdapter extends RecyclerView.Adapter<LearningLinksView
 
     @Override
     public void onBindViewHolder(@NonNull LearningLinksViewHolder learningLinksViewHolder, int i) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            learningLinksViewHolder.textViewLink.setText(Html.fromHtml(mUserLinks.get(i),Html.FROM_HTML_MODE_COMPACT));
-//        }else{
-//            learningLinksViewHolder.textViewLink.setText(Html.fromHtml(mUserLinks.get(i)));
-//        }
-        learningLinksViewHolder.textViewLink.setText(mUserLinks.get(i));
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            learningLinksViewHolder.textViewLink.setText(
+                    Html.fromHtml("<a href=" + mUserLinks.get(i) + ">" + mUserLinks.get(i),
+                            Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            learningLinksViewHolder.textViewLink.setText(Html.fromHtml("<a href=" +
+                    mUserLinks.get(i) + ">" + mUserLinks.get(i)));
+        }
     }
 
     @Override
