@@ -128,6 +128,7 @@ public class SubscribeActivity extends AppCompatActivity implements SubscribeVie
         super.onStart();
         if (Preferences.getSubscribedTopic(getApplicationContext()) != null) {
             startActivity(new Intent(this, LearningLinksActivity.class));
+            finish();
         }
     }
 }
